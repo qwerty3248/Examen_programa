@@ -8,7 +8,7 @@ OBJ=$(HOME)/obj
 BIN=$(HOME)/bin
 
 
-all : $(BIN)/main 
+all : $(BIN)/main $(BIN)/crea
 
 
 $(LIB)/libExamen.a : $(OBJ)/Examen.o 
@@ -42,6 +42,13 @@ $(LIB)/libGeneradorAleatorioEnteros.a : $(OBJ)/GeneradorAleatorioEnteros.o
 	$(OBJ)/GeneradorAleatorioEnteros.o 
 
 
+
+$(BIN)/crea:$(OBJ)/crea.o
+	g++ -o $(BIN)/crea $(OBJ)/crea.o  
+
+
+$(OBJ)/crea.o:$(SRC)/crea_pregunta.cpp
+	g++ -c -o $(OBJ)/crea.o $(SRC)/crea_pregunta.cpp
 
 $(OBJ)/GeneradorAleatorioEnteros.o : $(SRC)/GeneradorAleatorioEnteros.cpp \
 $(INCLUDE)/GeneradorAleatorioEnteros.h 
