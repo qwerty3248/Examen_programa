@@ -11,8 +11,7 @@
 #include <cstdlib>
 using namespace std;
 
-
-const int num_preguntas_cargadas = 50;
+const int num_preguntas_cargadas = 17;
 const double error = 0.33;
 
 void CargarDatos(istream & in, Examen & e){
@@ -50,19 +49,14 @@ int main (void){
 	
 	}
 	
-	
 	cout<<"Buenas al usuario que va a realizar el examen, ahora se le "
 	    <<"mostraran las instrucciones de este examen: "<<endl;
 	cout<<"-El examen constara del numero de preguntas que usted desee, "    
 	    <<"Introduzca cuantas preguntas desea tenga en cuenta que no puede"
 	    <<" ser mayor que las preguntas cargadas,"<<num_preguntas_cargadas
 	    <<" en este caso."<<endl;
-	do {
-		
-		cout<<"Numero de preguntas para el examen: ";
-		cin>>preguntas;
-	
-	}while(preguntas <= 0 || preguntas > num_preguntas_cargadas);  
+	cout<<"Numero de preguntas para el examen: ";
+	cin>>preguntas;   
 	cout<<"-Las preguntas son de la a hasta la d en MINUSCULA, para dejar "
 	    <<"la pregunta en blanco debes usar el guión -"<<endl
 	    <<"-No tiene límite de tiempo."<<endl;
@@ -79,7 +73,7 @@ int main (void){
         cout.flush(); // Forzar la salida en el buffer sin 
         				   //agregar un salto de línea
         
-        usleep(200000);//sleep en milisegundos
+        usleep(500000);//sleep en milisegundos
 		
 	}
 	cout<<endl;
@@ -145,6 +139,7 @@ int main (void){
 		     
 		
 	}
+	//aux.GetCorrecta() == to_string(respuestas[i]
 	int fallos[preguntas];
 	int posicion_fallos = 0;
 	cout<<"Perfecto ahora vamos a corregir esas respuestas JIJIJI..."<<endl;
@@ -152,65 +147,29 @@ int main (void){
 	for(int i = 0 ; i < preguntas; i++){
 		Pregunta aux;
 		aux = tipo_examen[aleatorios[i]];
-		if(aux.GetCorrecta() == string(1, respuestas[i])){
-			aciertos++;
-		}else if(respuestas[i] == '-'){
-			blancas++;
-		}else{
-			fallos2++;
-			fallos[posicion_fallos] = i;
-			posicion_fallos++;
+		if (aux.GetCorrecta() == string(1, respuestas[i])) {
+		    aciertos++;
+		} else if (respuestas[i] == '-') {
+		    blancas++;
+		} else {
+		    fallos2++;
+		    fallos[posicion_fallos] = i;
+		    posicion_fallos++;
 		}
+
+
 	
 	
 	}
-	double nota = ((aciertos*10)/num_preguntas_cargadas)-(fallos2*error);
+	double nota = ((aciertos*10)/preguntas)-(fallos2*error);
 	
 	cout<<"Sus aciertos han sido: "<<aciertos<<endl;
 	cout<<"Sus fallos han sido: "<<fallos2<<endl;
 	cout<<"Sus blancas han sido: "<<blancas<<endl;
 	cout<<"Su nota es: "<<nota<<endl;
-	if(nota >= 5 && nota <7 ){
-		
-		cout<<"Oye ni tan mal solo te falta un poco más para sacar un 8"<<endl;
-	
-	}else if(nota < 5){
-	
-	
-		cout<<"Illo tiene que darle caña que menos de un 5 está regula"<<endl;
-	
-	}else if(nota >= 7 && nota <= 9.9){
-	
-		cout<<"A las puerta de la perfección aunque eso no existe"<<endl;
-	
-	}else{
-	
-		cout<<"Ya se a quien acudir para alguna pregunta, matricula, "
-		    <<"aqui tienes : "<<endl;
-		    
-		cout<<"***************************************************************";
-		cout<<"**                                                           **";    
-		cout<<"**             TIENES UN GRAN FUTURO POR DELANTE             **";    
-		cout<<"**                                                           **";		    
-		cout<<"**                                                           **";
-		cout<<"**                                                           **";
-		cout<<"**                   ENHORABUENAAAAAAAAAA                    **";
-		cout<<"**                                                           **";
-		cout<<"**                                                           **";
-		cout<<"**                                                           **";
-		cout<<"**                                                           **";
-		cout<<"**                                                           **";
-		cout<<"**  Matricula de honor hecha por Jezus =)                    **";
-		cout<<"**                                                           **";
-		cout<<"***************************************************************";		
-	
-		sleep(3);
-	}
-	
 	cout<<"El error puesto en este examen ha sido de "<<error<<endl;
 	cout<<"Para cambiar el error debe avisar al propietario del pc jiji."
 	    <<endl;
-	sleep(2);
 	    
 	if(fallos != 0){
 		cout<<"Ahora vamos con esos fallos: "<<endl;
@@ -237,7 +196,6 @@ int main (void){
 	}    
 
 	cout<<"Agradecimientos nuevamente a Marta Pedraza Pastor =)"<<endl
-		<<"Las preguntas están cogidas de wuolah"<<endl
 	    <<"Gracias por hacer el examen"<<endl;
 
 
